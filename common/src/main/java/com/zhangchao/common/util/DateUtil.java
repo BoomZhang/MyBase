@@ -12,7 +12,7 @@ import java.util.Date;
 public class DateUtil {
 
   private static final String[] DayOfWeek = new String[]{
-      "星期一","星期二","星期三","星期四","星期五","星期六","星期日"
+      "星期日","星期一","星期二","星期三","星期四","星期五","星期六"
   };
 
   private DateUtil(){ }
@@ -32,7 +32,7 @@ public class DateUtil {
    * 获取当前星期几
    */
   public static String getDayOfWeek(){
-    return DayOfWeek[Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 2];
+    return DayOfWeek[Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1];
   }
 
 }
