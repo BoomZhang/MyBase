@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import com.zhangchao.mybase.test.UIActivity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void initList() {
-    BooActivity activity = new BooActivity();
-    data.add(new Item("boo",activity.getClass()));
+    UIActivity activity = new UIActivity();
+    data.add(new Item("UI测试",activity.getClass()));
   }
 
   public class MainAdapter extends RecyclerView.Adapter<MainAdapter.VH>{

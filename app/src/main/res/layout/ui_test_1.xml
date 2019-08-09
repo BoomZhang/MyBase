@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <!--只有在FloatingActionButton外部套上一个CoordinatorLayout布局-->
+  <!--才能在使用SnackBar时支持Button被顶起，并支持滑动删除-->
+
+  <android.support.design.widget.CoordinatorLayout
+    android:id="@+id/snackbar_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.FloatingActionButton
+      android:id="@+id/fab"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|right"
+      android:layout_marginBottom="24dp"
+      android:layout_marginEnd="24dp"
+      android:src="@drawable/plus_circle" />
+
+  </android.support.design.widget.CoordinatorLayout>
+
+</RelativeLayout>
