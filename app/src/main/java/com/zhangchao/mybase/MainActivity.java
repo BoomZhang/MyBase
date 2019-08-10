@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import com.zhangchao.mybase.test.AActivity;
 import com.zhangchao.mybase.test.UIActivity;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
   private void initList() {
     UIActivity activity = new UIActivity();
     data.add(new Item("UI测试",activity.getClass()));
+    AActivity aActivity = new AActivity();
+    data.add(new Item("Actvity生命周期测试",aActivity.getClass()));
   }
 
   public class MainAdapter extends RecyclerView.Adapter<MainAdapter.VH>{
@@ -77,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
       public VH(View itemView) {
         super(itemView);
-        mBtGo = (Button) itemView.findViewById(R.id.btn_go);
+        mBtGo = itemView.findViewById(R.id.btn_go);
       }
     }
   }

@@ -21,6 +21,8 @@
     </activity>
 
     <activity android:name=".test.UIActivity"/>
+    <activity android:name=".test.AActivity"/>
+    <activity android:name=".test.BActivity"/>
 
   </application>
 
