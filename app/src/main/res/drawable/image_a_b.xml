@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/test_4"/>
+  <item android:drawable="@drawable/test_5"/>
+  <!--<item android:drawable="@drawable/test_1"/>-->
+  <!--<item android:drawable="@drawable/test_2"/>-->
+  <!--<item android:drawable="@drawable/test_3"/>-->
+  <!--<item android:drawable="@drawable/test_6"/>-->
+  <!--<item android:drawable="@drawable/test_7"/>-->
+  <!--<item android:drawable="@drawable/test_8"/>-->
+</transition>
