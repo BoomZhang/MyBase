@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import com.zhangchao.mybase.test.AActivity;
+import com.zhangchao.mybase.test.MediaActivity;
 import com.zhangchao.mybase.test.UIActivity;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     data.add(new Item("UI测试",activity.getClass()));
     AActivity aActivity = new AActivity();
     data.add(new Item("Actvity生命周期测试",aActivity.getClass()));
+    MediaActivity mediaActivity = new MediaActivity();
+    data.add(new Item("多媒体功能测试",mediaActivity.getClass()));
   }
 
   public class MainAdapter extends RecyclerView.Adapter<MainAdapter.VH>{

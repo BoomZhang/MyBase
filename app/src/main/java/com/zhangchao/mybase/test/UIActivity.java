@@ -1,20 +1,19 @@
 package com.zhangchao.mybase.test;
 
-import android.content.res.Resources;
-import android.graphics.drawable.TransitionDrawable;
-import android.graphics.drawable.VectorDrawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 import com.zhangchao.common.util.ClipboardUtil;
+import com.zhangchao.common.util.LogUtil;
 import com.zhangchao.common.util.ToastUtil;
 import com.zhangchao.mybase.R;
 
@@ -36,6 +35,21 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
     super.onCreate(savedInstanceState);
     setContentView(R.layout.ui_test_1);
     initViews();
+    DisplayMetrics displayMetrics = new DisplayMetrics();
+    //将信息保存到displayMetrics中.
+    this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+    //1.x轴和y轴的dpi.
+    LogUtil.d("ydpi=" + displayMetrics.ydpi);
+    LogUtil.d("xdpi=" + displayMetrics.xdpi);
+    //2.x轴和y轴的像素个数.
+    LogUtil.d("heightPixels=" + displayMetrics.heightPixels);
+    LogUtil.d("widthPixels=" + displayMetrics.widthPixels);
+    //3.dpi
+    LogUtil.d("densityDpi=" + displayMetrics.densityDpi);
+    //4.dpi/160.
+    LogUtil.d("density=" + displayMetrics.density);
+    //5.通常情况下和density相同.
+    LogUtil.d("scaledDensity=" + displayMetrics.scaledDensity);
   }
 
   private void initViews() {
@@ -60,9 +74,21 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
     //mIv.setBackground(myDrawable);
 
     //绘制矢量图
-    VectorDrawable  drawable =
-        (VectorDrawable) ResourcesCompat.getDrawable(getResources(),R.drawable.battery_charging,null);
-    mIv.setImageDrawable(drawable);
+    //VectorDrawable  drawable =
+    //    (VectorDrawable) ResourcesCompat.getDrawable(getResources(),R.drawable.battery_charging,null);
+    //mIv.setImageDrawable(drawable);
+
+    //BitmapFactory.Options opt = new BitmapFactory.Options();
+    //opt.inJustDecodeBounds = true;
+    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.test_9,null);
+
+    //Bitmap b2 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+    //mIv.setImageBitmap(b2);
+    //LogUtil.i(String.valueOf(b2.getByteCount()));
+    //Bitmap b2 = bitmap.compress();
+    //LogUtil.i("height = " + String.valueOf(bitmap.getHeight()));
+    //LogUtil.i("width = " + String.valueOf(bitmap.getWidth()));
+    mIv.setImageBitmap(bitmap);
   }
 
   @Override
