@@ -32,7 +32,6 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
   private Button mBtTakePhoto;
   private ImageView mIvShow;
 
-
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -53,19 +52,23 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     }
   }
 
+  /**
+   * 拍照的方法
+   */
   private void takePhoto(View v) {
+    //表示将打开系统相机的Intent
     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    //takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
     if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
       File photoFile = null;
       try {
+        //获取一个图片文件
         photoFile = createImageFile();
       } catch (IOException e) {
         e.printStackTrace();
       }
 
       if(photoFile != null){
-
+        //其中第二个参数就是在AndroidManifest.xml中注册的FileProvider的authority属性
         Uri photoUri = FileProvider.getUriForFile(this,
             "com.zhangchao.mybase.fileprovider",
             photoFile);
@@ -79,20 +82,31 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+      /**
+       * 需要注意在takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);执行后
+       * 即已经添加了存储图片的Uri之后，data中将不会保存信息，所以data == null
+       * 如果不在Intent中添加Uri则data保存着拍照结果的缩略图
+       */
       galleryAddPic();
     }
   }
 
+  /**
+   * 创建一个jpg文件，并且需要保存这个文件的路径currentPhotoPath
+   * 创建方式是File.creatTempFile(),注意new File()的方式未成功，具体原因未知
+   * 其中getExternalFilesDir()方法对应<external-path/>标签
+   */
   private File createImageFile() throws IOException {
     // Create an image file name
     String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
     String imageFileName = "JPEG_" + timeStamp;
-    File storageDir = Environment.getExternalStorageDirectory();
-    File image = new File(storageDir,"pictures/" + imageFileName + ".jpg");
-    // Save a file: path for use with ACTION_VIEW intents
-    //File image = File.createTempFile("pictures/" + imageFileName,".jpg",storageDir);
+    File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+    File image = File.createTempFile(
+        imageFileName,  /* prefix */
+        ".jpg",         /* suffix */
+        storageDir      /* directory */
+    );
     currentPhotoPath = image.getAbsolutePath();
-    LogUtil.i("A++++++++" + currentPhotoPath);
     return image;
   }
 

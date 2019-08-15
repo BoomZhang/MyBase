@@ -5,6 +5,7 @@
 
   <dist:module dist:instant="true" />
 
+  <!--申请写入外部存储的权限-->
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
   <application
@@ -27,6 +28,11 @@
     <activity android:name=".test.BActivity"/>
     <activity android:name=".test.MediaActivity"/>
 
+    <!--声明一个关于文件的分享FileProvider，继承于ContentProvider-->
+    <!--name: 表明使用v4包下的FileProvider，可以继承FileProvider自定义所需要的Provider-->
+    <!--authorities:授权，在代码中注册Uri的时候会与这个有关，前面是包名-->
+    <!--exported为false,grantUriPermissions为true，否则会报错-->
+    <!--resource表明注册的Uri路径来自于res/xml文件夹下的file_paths.xml-->
     <provider
       android:name="android.support.v4.content.FileProvider"
       android:authorities="com.zhangchao.mybase.fileprovider"
