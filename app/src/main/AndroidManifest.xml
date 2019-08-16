@@ -7,6 +7,7 @@
 
   <!--申请写入外部存储的权限-->
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.CAMERA"/>
 
   <application
     android:allowBackup="true"
@@ -27,6 +28,7 @@
     <activity android:name=".test.AActivity"/>
     <activity android:name=".test.BActivity"/>
     <activity android:name=".test.MediaActivity"/>
+    <activity android:name="com.zhangchao.common.media.CameraActivity"/>
 
     <!--声明一个关于文件的分享FileProvider，继承于ContentProvider-->
     <!--name: 表明使用v4包下的FileProvider，可以继承FileProvider自定义所需要的Provider-->

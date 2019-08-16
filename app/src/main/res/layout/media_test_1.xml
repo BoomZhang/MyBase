@@ -3,10 +3,18 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
+  <android.support.v4.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
   <ImageView
     android:id="@+id/img_show"
     android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_height="300dp"
     android:src="@drawable/test_4"
     android:scaleType="fitXY"/>
 
@@ -16,5 +24,25 @@
     android:layout_height="wrap_content"
     android:text="拍照"
     android:layout_below="@+id/img_show"/>
+
+      <VideoView
+        android:id="@+id/vdo_show"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/btn_take_photo"
+        android:defaultFocusHighlightEnabled="true"
+        android:scrollbars="horizontal" />
+
+  <Button
+    android:id="@+id/btn_take_video"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/vdo_show"
+    android:text="拍视频"/>
+
+    </RelativeLayout>
+
+  </android.support.v4.widget.NestedScrollView>
+
 
 </RelativeLayout>

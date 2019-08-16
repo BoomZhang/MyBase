@@ -1,7 +1,6 @@
 package com.zhangchao.mybase.test;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -12,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.VideoView;
 import com.zhangchao.common.util.LogUtil;
 import com.zhangchao.mybase.R;
 import java.io.File;
@@ -27,10 +27,13 @@ import java.util.Date;
 public class MediaActivity extends AppCompatActivity implements View.OnClickListener{
 
   private static final int REQUEST_IMAGE_CAPTURE = 1;
+  private static final int REQUEST_VIDEO_CAPTURE = 2;
   private String currentPhotoPath;
 
   private Button mBtTakePhoto;
   private ImageView mIvShow;
+  private Button mBtTakeVideo;
+  private VideoView mVodShow;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,12 +46,27 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
     mBtTakePhoto = findViewById(R.id.btn_take_photo);
     mBtTakePhoto.setOnClickListener(this);
     mIvShow = findViewById(R.id.img_show);
+    mVodShow = findViewById(R.id.vdo_show);
+    mBtTakeVideo = findViewById(R.id.btn_take_video);
+    mBtTakeVideo.setOnClickListener(this);
   }
 
   @Override
   public void onClick(View v) {
     if(v.getId() == R.id.btn_take_photo){
       takePhoto(v);
+    }else if(v.getId() == R.id.btn_take_video){
+      takeVideo(v);
+    }
+  }
+
+  /**
+   * 拍视频的方法
+   */
+  private void takeVideo(View v) {
+    Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+    if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
+      startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
     }
   }
 
@@ -88,6 +106,13 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
        * 如果不在Intent中添加Uri则data保存着拍照结果的缩略图
        */
       galleryAddPic();
+    }
+
+    if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
+      Uri videoUri = data.getData();
+      LogUtil.i(videoUri.toString());
+      mVodShow.setVideoURI(videoUri);
+      mVodShow.start();
     }
   }
 
