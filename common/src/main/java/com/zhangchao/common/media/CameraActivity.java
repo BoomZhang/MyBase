@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import com.zhangchao.common.Permission.Permission;
 import com.zhangchao.common.R;
-import com.zhangchao.common.util.LogUtil;
 import com.zhangchao.common.util.ToastUtil;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -50,7 +49,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
         //缓存创建的时候
         //得到相机 初始化
         //得到相机对象
-        camera=getCamera();
+        //camera=getCamera();
         //如果相机不为空
         if (camera!=null){
           try {
