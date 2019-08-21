@@ -3,32 +3,48 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <TextureView
-    android:id="@+id/texture_view"
+  <RelativeLayout
+    android:id="@+id/rl_bottom_bar"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_above="@+id/ll_bottom"/>
-
-  <LinearLayout
-    android:id="@+id/ll_bottom"
-    android:layout_width="match_parent"
-    android:layout_height="100dp"
-    android:orientation="horizontal"
+    android:layout_height="70dp"
+    android:background="#000000"
+    android:padding="10dp"
     android:layout_alignParentBottom="true">
 
-    <Button
-      android:id="@+id/btn_take_photo"
-      android:layout_width="wrap_content"
-      android:layout_height="match_parent"
-      android:text="拍照"/>
+    <com.zhangchao.common.ui.CircleImageView
+      android:id="@+id/iv_show_photo"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:src="@drawable/shape_circle"
+      android:layout_centerVertical="true"
+      android:layout_marginLeft="50dp"/>
 
-    <ImageView
-      android:id="@+id/img_show"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      android:scaleType="fitXY"
-      android:layout_marginLeft="200dp"/>
+    <ImageButton
+      android:id="@+id/imb_take_photo"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:src="@drawable/btn_take_photo"
+      android:layout_centerInParent="true"
+      android:scaleType="centerInside"
+      android:background="@null"/>
 
-  </LinearLayout>
+    <ImageButton
+      android:id="@+id/imb_change_camera"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_alignParentRight="true"
+      android:layout_marginRight="50dp"
+      android:layout_centerVertical="true"
+      android:background="@drawable/shape_circle"
+      android:scaleType="centerInside"
+      android:src="@drawable/icon_change" />
+
+  </RelativeLayout>
+
+  <SurfaceView
+    android:id="@+id/sfv_show"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/rl_bottom_bar"/>
 
 </RelativeLayout>

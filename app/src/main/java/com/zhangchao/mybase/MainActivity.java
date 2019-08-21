@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import com.zhangchao.common.media.Camera2Activity;
 import com.zhangchao.common.media.CameraActivity;
 import com.zhangchao.mybase.test.AActivity;
 import com.zhangchao.mybase.test.MediaActivity;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     data.add(new Item("多媒体功能测试",mediaActivity.getClass()));
     CameraActivity cameraActivity = new CameraActivity();
     data.add(new Item("自定义相机",cameraActivity.getClass()));
+    Camera2Activity camera2Activity = new Camera2Activity();
+    data.add(new Item("自定义相机2",camera2Activity.getClass()));
   }
 
   public class MainAdapter extends RecyclerView.Adapter<MainAdapter.VH>{
