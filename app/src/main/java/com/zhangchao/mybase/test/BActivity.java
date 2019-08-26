@@ -1,6 +1,8 @@
 package com.zhangchao.mybase.test;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import com.zhangchao.common.util.LogUtil;
@@ -12,6 +14,21 @@ import com.zhangchao.mybase.R;
  * 描述:
  */
 public class BActivity extends AppCompatActivity {
+
+  private Handler mHandler = new Handler(){
+    @Override
+    public void handleMessage(Message msg) {
+      super.handleMessage(msg);
+      switch (msg.what){
+        case 1:
+          doin();
+          break;
+      }
+    }
+  };
+
+  private void doin() {
+  }
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {

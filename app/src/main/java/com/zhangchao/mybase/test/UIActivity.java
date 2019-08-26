@@ -1,5 +1,6 @@
 package com.zhangchao.mybase.test;
 
+import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import com.bumptech.glide.Glide;
+import com.zhangchao.common.Permission.Permission;
 import com.zhangchao.common.util.ClipboardUtil;
 import com.zhangchao.common.util.LogUtil;
 import com.zhangchao.common.util.ToastUtil;
@@ -27,7 +30,7 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
   private FloatingActionButton fab;
   private ImageView mIv;
   private EditText mEtInput;
-  private Button mBtCopy;
+  private Button mBtCopy,mBtLoadPicture;
   private static int NUM = 0;
 
   @Override
@@ -56,39 +59,29 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
     fab = findViewById(R.id.fab);
     fab.setOnClickListener(this);
     mIv = findViewById(R.id.img_show);
-    testImg(mIv);
+    mBtLoadPicture = findViewById(R.id.btn_load_picture);
+    mBtLoadPicture.setOnClickListener(this);
     mEtInput = findViewById(R.id.etd_input);
     mBtCopy = findViewById(R.id.btn_copy);
     mBtCopy.setOnClickListener(this);
   }
 
-  private void testImg(ImageView mIv) {
-    //Resources res = this.getResources();
-    //设置过渡图
-    //TransitionDrawable transitionDrawable =
-    //    (TransitionDrawable) ResourcesCompat.getDrawable(res,R.drawable.image_a_b,null);
-    //mIv.setImageDrawable(transitionDrawable);
-    //transitionDrawable.startTransition(3000);
-    //MyDrawable myDrawable = new MyDrawable();
-    //mIv.setImageDrawable(myDrawable);
-    //mIv.setBackground(myDrawable);
+  private void testImg() {
+    final String url = "http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg";
+    Permission.apply(this, Manifest.permission.INTERNET, new Permission.Status() {
+      @Override
+      public void allow() {
+        Glide.with(UIActivity.this)
+            .load(url)
+            .placeholder(R.drawable.test_1)
+            .into(mIv);
+      }
 
-    //绘制矢量图
-    //VectorDrawable  drawable =
-    //    (VectorDrawable) ResourcesCompat.getDrawable(getResources(),R.drawable.battery_charging,null);
-    //mIv.setImageDrawable(drawable);
+      @Override
+      public void deny() {
 
-    //BitmapFactory.Options opt = new BitmapFactory.Options();
-    //opt.inJustDecodeBounds = true;
-    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.test_9,null);
-
-    //Bitmap b2 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
-    //mIv.setImageBitmap(b2);
-    //LogUtil.i(String.valueOf(b2.getByteCount()));
-    //Bitmap b2 = bitmap.compress();
-    //LogUtil.i("height = " + String.valueOf(bitmap.getHeight()));
-    //LogUtil.i("width = " + String.valueOf(bitmap.getWidth()));
-    mIv.setImageBitmap(bitmap);
+      }
+    });
   }
 
   @Override
@@ -97,6 +90,8 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
       fabGo(v);
     }else if(v.getId() == R.id.btn_copy){
       copyTest();
+    }else if(v.getId() == R.id.btn_load_picture){
+      testImg();
     }
 
   }

@@ -28,6 +28,8 @@ public class AActivity extends AppCompatActivity {
       }
     });
 
+    findViewById(R.id.myview).setVisibility(View.GONE);
+
     LogUtil.i("A.onCreate()");
   }
 
@@ -47,6 +49,7 @@ public class AActivity extends AppCompatActivity {
   protected void onResume() {
     super.onResume();
     LogUtil.i("A.onResume()");
+    findViewById(R.id.myview).setVisibility(View.VISIBLE);
   }
 
   @Override

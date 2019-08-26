@@ -16,4 +16,12 @@
     android:text="to_B_Activity"
     android:layout_alignParentBottom="true"/>
 
+  <com.zhangchao.mybase.test.MyView
+    android:id="@+id/myview"
+    android:text="XXXXXX"
+    android:gravity="center"
+    android:textSize="60dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
 </RelativeLayout>

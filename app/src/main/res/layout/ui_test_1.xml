@@ -11,6 +11,13 @@
     android:layout_marginTop="20dp"
     android:src="@drawable/test_6"/>
 
+  <Button
+    android:id="@+id/btn_load_picture"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="加载图片"
+    android:layout_below="@+id/img_show"/>
+
   <!--只有在FloatingActionButton外部套上一个CoordinatorLayout布局-->
   <!--才能在使用SnackBar时支持Button被顶起，并支持滑动删除-->
 
@@ -36,7 +43,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_below="@+id/img_show">
+    android:layout_below="@+id/btn_load_picture">
 
     <EditText
       android:id="@+id/etd_input"
