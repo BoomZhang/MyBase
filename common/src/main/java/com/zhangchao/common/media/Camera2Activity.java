@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
@@ -15,10 +16,12 @@ import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
 import android.media.Image;
 import android.media.ImageReader;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.SparseIntArray;
@@ -34,7 +37,12 @@ import com.zhangchao.common.R;
 import com.zhangchao.common.ui.CircleImageView;
 import com.zhangchao.common.util.LogUtil;
 import com.zhangchao.common.util.ToastUtil;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -72,7 +80,6 @@ public class Camera2Activity extends AppCompatActivity implements View.OnClickLi
   private ImageReader mImageReader;
   private Handler childHandler;
   private Handler mainHandler;
-  private List<Surface> list = new LinkedList<Surface>();
 
   private SurfaceHolder.Callback mCallback = new SurfaceHolder.Callback() {
     @Override
@@ -153,6 +160,7 @@ public class Camera2Activity extends AppCompatActivity implements View.OnClickLi
     mImChangeCamera = findViewById(R.id.imb_change_camera);
     mImChangeCamera.setOnClickListener(this);
     mCimPhoto = findViewById(R.id.iv_show_photo);
+    mCimPhoto.setOnClickListener(this);
 
     mSfvHolder = mSfvShow.getHolder();
     mSfvHolder.setKeepScreenOn(true);
@@ -162,16 +170,13 @@ public class Camera2Activity extends AppCompatActivity implements View.OnClickLi
 
   @SuppressLint("MissingPermission")
   private void initCamera() {
-
     HandlerThread handlerThread = new HandlerThread("Camera2");
     handlerThread.start();
     childHandler = new Handler(handlerThread.getLooper());
     mainHandler = new Handler(getMainLooper());
 
     initImageReader();
-
     mCameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-
     if(Permission.check(this,Manifest.permission.CAMERA,null)){
       try {
         mCameraManager.openCamera(mCameraID+"",stateCallback,mainHandler);
@@ -179,9 +184,12 @@ public class Camera2Activity extends AppCompatActivity implements View.OnClickLi
         e.printStackTrace();
       }
     }
-
   }
 
+  /**
+   * ImageReader在切换镜头时需要重新initImageReader
+   * 否则会出现crash，原因未知
+   */
   private void initImageReader(){
     mImageReader = ImageReader.newInstance(1080,1920,ImageFormat.JPEG,1);
     mImageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
@@ -198,18 +206,22 @@ public class Camera2Activity extends AppCompatActivity implements View.OnClickLi
             bitmap = adjustPhotoRotation(bitmap,180);
           }
           mCimPhoto.setImageBitmap(bitmap);
+          saveBitmapToAlbum(bitmap);
         }
         image.close();
       }
     },mainHandler);
   }
 
+  @RequiresApi(api = Build.VERSION_CODES.P)
   @Override
   public void onClick(View v) {
     if(v.getId() == R.id.imb_take_photo){
       takePhoto();
     }else if(v.getId() == R.id.imb_change_camera){
       changeCamera();
+    }else if(v.getId() == R.id.iv_show_photo){
+      openAblum();
     }
   }
 
@@ -217,18 +229,9 @@ public class Camera2Activity extends AppCompatActivity implements View.OnClickLi
     try {
       mPreviewRequestBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
       mPreviewRequestBuilder.addTarget(mSfvHolder.getSurface());
-      if(!list.isEmpty()){
-        list.clear();
-      }
-      list.add(mSfvHolder.getSurface());
-      if(mImageReader.getSurface().isValid()){
-        LogUtil.i("AAAA");
-        list.add(mImageReader.getSurface());
-        //mImageReader.getSurface().release();
-      }
 
       mCameraDevice.createCaptureSession(
-          list,
+          Arrays.asList(mSfvHolder.getSurface(),mImageReader.getSurface()),
           new CameraCaptureSession.StateCallback() {
             @Override
             public void onConfigured(CameraCaptureSession session) {
@@ -313,4 +316,66 @@ public class Camera2Activity extends AppCompatActivity implements View.OnClickLi
     }
     return null;
   }
+
+  /**
+   * 保存Bitmap到手机相册中
+   * @param bitmap
+   */
+  private void saveBitmapToAlbum(Bitmap bitmap){
+    File qrCache = new File(getBaseContext().getExternalCacheDir(),"cache");
+    if(!qrCache.exists()){
+      qrCache.mkdir();
+    }
+    String fileName = System.currentTimeMillis() + "jpg";
+    final File picFile = new File(qrCache, fileName);
+    FileOutputStream fos  = null;
+    try {
+      fos = new FileOutputStream(picFile);
+      bitmap.compress(Bitmap.CompressFormat.JPEG,100,fos);
+      fos.flush();
+      fos.close();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      if (fos != null) {
+        try {
+          fos.close();
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+      }
+    }
+    Permission.apply(this, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        new Permission.Status() {
+          @Override
+          public void allow() {
+            try {
+              MediaStore.Images.Media.insertImage(getBaseContext().getContentResolver(),
+                  picFile.getAbsolutePath(), picFile.getName(), null);
+            } catch (FileNotFoundException e) {
+              e.printStackTrace();
+            }
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            getBaseContext().sendBroadcast(mediaScanIntent);
+          }
+
+          @Override
+          public void deny() {
+            ToastUtil.showLong(getBaseContext(),"无权限存储相片！");
+          }
+        });
+  }
+
+  /**
+   * 打开系统相册
+   * 未解决，不知道该怎么跳转相册而不是选择图片
+   */
+  private void openAblum(){
+    //Intent intent = new Intent(Intent.ACTION_VIEW);
+    //intent.setType("image/*");
+    //this.startActivity(intent);
+  }
+
 }
