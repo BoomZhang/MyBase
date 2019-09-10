@@ -35,7 +35,7 @@ public class ViewActivity extends AppCompatActivity {
     textView.setOnTouchListener(new View.OnTouchListener() {
       @Override
       public boolean onTouch(View v, MotionEvent event) {
-        LogUtil.i("textview onTouch");
+
         return false;
       }
     });
@@ -46,7 +46,14 @@ public class ViewActivity extends AppCompatActivity {
         ((ConstraintLayout)findViewById(R.id.pppp)).scrollTo(-100,-200);
       }
     });
+
   }
+
+  //@Override
+  //public void onWindowFocusChanged(boolean hasFocus) {
+  //  super.onWindowFocusChanged(hasFocus);
+  //  printViewValue(button);
+  //}
 
   private void printViewValue(View view){
     LogUtil.i("Top = " + view.getTop());
@@ -64,7 +71,6 @@ public class ViewActivity extends AppCompatActivity {
   @Override
   public boolean onTouchEvent(MotionEvent event) {
     super.onTouchEvent(event);
-    LogUtil.i("activity onTouch");
     return true;
   }
 }

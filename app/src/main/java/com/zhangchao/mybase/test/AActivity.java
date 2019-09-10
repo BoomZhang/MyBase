@@ -69,4 +69,10 @@ public class AActivity extends AppCompatActivity {
     super.onDestroy();
     LogUtil.i("A.onDestroy()");
   }
+
+  @Override
+  public void onWindowFocusChanged(boolean hasFocus) {
+    super.onWindowFocusChanged(hasFocus);
+    LogUtil.i("——————————————————————");
+  }
 }
