@@ -2,26 +2,23 @@ package com.zhangchao.mybase.test;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import com.zhangchao.common.util.LogUtil;
+import android.widget.EditText;
 import com.zhangchao.mybase.R;
+import java.util.regex.Pattern;
 
 /**
  * 创建时间: 2019/09/02
  * 作者: zhangchao042@ke.com
  * 描述:
  */
-public class ViewActivity extends AppCompatActivity {
+public class ViewActivity extends LifeCycleActivity {
 
-  private TextView textView;
-  private Button button;
-  private LinearLayout mll;
+  private TextInputLayout mTextInputLayout;
+  private EditText mEtInputPhoneNumber;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,46 +28,39 @@ public class ViewActivity extends AppCompatActivity {
   }
 
   private void initViews() {
-    textView = findViewById(R.id.textView);
-    textView.setOnTouchListener(new View.OnTouchListener() {
+    mTextInputLayout = findViewById(R.id.text_input_layout);
+    mEtInputPhoneNumber = findViewById(R.id.input_phone_number);
+    mEtInputPhoneNumber.addTextChangedListener(new TextWatcher() {
       @Override
-      public boolean onTouch(View v, MotionEvent event) {
+      public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-        return false;
+      }
+
+      @Override
+      public void onTextChanged(CharSequence s, int start, int before, int count) {
+        if(!isInteger(s.toString())){
+          mTextInputLayout.setError("验证码错误");
+          mTextInputLayout.setErrorEnabled(true);
+        }else{
+          mTextInputLayout.setErrorEnabled(false);
+        }
+      }
+
+      @Override
+      public void afterTextChanged(Editable s) {
+
       }
     });
-    button = findViewById(R.id.button);
-    button.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        ((ConstraintLayout)findViewById(R.id.pppp)).scrollTo(-100,-200);
-      }
-    });
-
-  }
-
-  //@Override
-  //public void onWindowFocusChanged(boolean hasFocus) {
-  //  super.onWindowFocusChanged(hasFocus);
-  //  printViewValue(button);
-  //}
-
-  private void printViewValue(View view){
-    LogUtil.i("Top = " + view.getTop());
-    LogUtil.i("Bottom = " + view.getBottom());
-    LogUtil.i("Left = " + view.getLeft());
-    LogUtil.i("Right = " + view.getRight());
-    LogUtil.i("Width = " + view.getWidth());
-    LogUtil.i("Height = " + view.getHeight());
-    LogUtil.i("X = " + view.getX());
-    LogUtil.i("Y = " + view.getY());
-    LogUtil.i("TranslationX = " + view.getTranslationX());
-    LogUtil.i("TranslationY = " + view.getTranslationY());
   }
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
     super.onTouchEvent(event);
     return true;
+  }
+
+  public static boolean isInteger(String str) {
+    Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+    return pattern.matcher(str).matches();
   }
 }
