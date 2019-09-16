@@ -1,5 +1,6 @@
 package com.zhangchao.mybase.test;
 
+import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,12 +8,14 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.VideoView;
+import com.zhangchao.common.Permission.Permission;
+import com.zhangchao.common.base.BaseActivity;
 import com.zhangchao.common.util.LogUtil;
+import com.zhangchao.common.util.ToastUtil;
 import com.zhangchao.mybase.R;
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +27,7 @@ import java.util.Date;
  * 作者: zhangchao042
  * 描述: 测试多媒体的Activity
  */
-public class MediaActivity extends AppCompatActivity implements View.OnClickListener{
+public class MediaActivity extends BaseActivity implements View.OnClickListener{
 
   private static final int REQUEST_IMAGE_CAPTURE = 1;
   private static final int REQUEST_VIDEO_CAPTURE = 2;
@@ -64,7 +67,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
    * 拍视频的方法
    */
   private void takeVideo(View v) {
-    Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+    final Intent takeVideoIntent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
     if (takeVideoIntent.resolveActivity(getPackageManager()) != null) {
       startActivityForResult(takeVideoIntent, REQUEST_VIDEO_CAPTURE);
     }
@@ -75,7 +78,7 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
    */
   private void takePhoto(View v) {
     //表示将打开系统相机的Intent
-    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    final Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
     if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
       File photoFile = null;
       try {
@@ -93,7 +96,18 @@ public class MediaActivity extends AppCompatActivity implements View.OnClickList
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
       }
 
-      startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+      Permission.apply(this, Manifest.permission.CAMERA, new Permission.Status() {
+        @Override
+        public void allow() {
+          startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+
+        @Override
+        public void deny() {
+          ToastUtil.showShort(getBaseContext(),"无权限");
+        }
+      });
+
     }
   }
 

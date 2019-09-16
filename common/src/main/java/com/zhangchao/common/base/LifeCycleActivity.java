@@ -1,4 +1,4 @@
-package com.zhangchao.mybase.test;
+package com.zhangchao.common.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,53 +8,68 @@ import com.zhangchao.common.util.LogUtil;
 /**
  * 创建时间: 2019/09/10
  * 作者: zhangchao042@ke.com
- * 描述:
+ * 描述: 打印Activity的生命周期
  */
 public class LifeCycleActivity extends AppCompatActivity {
 
   private String ClassName = "Error";
+  protected boolean isPrintLifeCycle = false;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     ClassName = getLocalClassName();
-    LogUtil.i(ClassName + " -> onCreate()");
+    if(isPrintLifeCycle){
+      LogUtil.i(ClassName + " -> onCreate()");
+    }
   }
 
   @Override
   protected void onStart() {
     super.onStart();
-    LogUtil.i(ClassName + " -> onStart()");
+    if(isPrintLifeCycle){
+      LogUtil.i(ClassName + " -> onStart()");
+    }
   }
 
   @Override
   protected void onRestart() {
     super.onRestart();
-    LogUtil.i(ClassName + " -> onRestart()");
+    if(isPrintLifeCycle){
+      LogUtil.i(ClassName + " -> onRestart()");
+    }
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-    LogUtil.i(ClassName + " -> onResume()");
+    if(isPrintLifeCycle){
+      LogUtil.i(ClassName + " -> onResume()");
+    }
   }
 
   @Override
   protected void onPause() {
     super.onPause();
-    LogUtil.i(ClassName + " -> onPause()");
+    if(isPrintLifeCycle){
+      LogUtil.i(ClassName + " -> onPause()");
+    }
   }
 
   @Override
   protected void onStop() {
     super.onStop();
-    LogUtil.i(ClassName + " -> onStop()");
+    if(isPrintLifeCycle){
+      LogUtil.i(ClassName + " -> onStop()");
+    }
   }
 
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    LogUtil.i(ClassName + " -> onDestroy()");
+    if(isPrintLifeCycle){
+      LogUtil.i(ClassName + " -> onDestroy()");
+    }
   }
 
 }

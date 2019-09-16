@@ -1,4 +1,4 @@
-package com.zhangchao.mybase.test;
+package com.zhangchao.common.ui;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,9 +13,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
 
 /**
- *
  * @author zhy
- *
+ * 描述：RecycleView的分割线
  */
 public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
 

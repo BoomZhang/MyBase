@@ -30,8 +30,6 @@
     </activity>
 
     <activity android:name=".test.UIActivity"/>
-    <activity android:name=".test.AActivity"/>
-    <activity android:name=".test.BActivity"/>
     <activity android:name=".test.MediaActivity"/>
     <activity android:name=".test.RecycleViewActivity"/>
     <activity android:name=".test.ViewActivity"/>

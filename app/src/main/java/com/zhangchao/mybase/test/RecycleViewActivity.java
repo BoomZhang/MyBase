@@ -4,19 +4,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.zhangchao.common.base.BaseActivity;
+import com.zhangchao.common.ui.DividerGridItemDecoration;
 import com.zhangchao.mybase.R;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +22,9 @@ import java.util.List;
 /**
  * 创建时间: 2019/08/29
  * 作者: zhangchao042@ke.com
- * 描述:
+ * 描述: 测试RecycleView的Activity
  */
-public class RecycleViewActivity extends AppCompatActivity {
+public class RecycleViewActivity extends BaseActivity {
 
   private RecyclerView mRecycleView;
   private List<String> data;
@@ -114,13 +112,6 @@ public class RecycleViewActivity extends AppCompatActivity {
     public void onBindViewHolder(@NonNull VH holder, int position) {
       String item = data.get(position);
       holder.mTvShow.setText(item);
-      //if(position % 4 == 0 || position == 0){
-      //  holder.mRoot.setHorizontalGravity(Gravity.START);
-      //}else if(position % 4 == 3){
-      //  holder.mRoot.setHorizontalGravity(Gravity.RIGHT);
-      //}else {
-      //  holder.mRoot.setHorizontalGravity(Gravity.CENTER);
-      //}
     }
 
     @Override

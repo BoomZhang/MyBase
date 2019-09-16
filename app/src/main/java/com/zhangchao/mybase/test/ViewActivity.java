@@ -7,15 +7,16 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.widget.EditText;
+import com.zhangchao.common.base.BaseActivity;
 import com.zhangchao.mybase.R;
 import java.util.regex.Pattern;
 
 /**
  * 创建时间: 2019/09/02
  * 作者: zhangchao042@ke.com
- * 描述:
+ * 描述: 一些View的测试Activity
  */
-public class ViewActivity extends LifeCycleActivity {
+public class ViewActivity extends BaseActivity {
 
   private TextInputLayout mTextInputLayout;
   private EditText mEtInputPhoneNumber;
