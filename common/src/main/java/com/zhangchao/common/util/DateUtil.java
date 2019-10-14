@@ -9,7 +9,7 @@ import java.util.Date;
  * 作者: zhangchao042@ke.com
  * 描述: 日期操作相关的工具类
  */
-public class DateUtil {
+public final class DateUtil {
 
   private static final String[] DayOfWeek = new String[]{
       "星期日","星期一","星期二","星期三","星期四","星期五","星期六"

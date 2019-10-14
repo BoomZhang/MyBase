@@ -6,17 +6,26 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.zhangchao.common.base.BaseActivity;
 import com.zhangchao.mybase.R;
+import org.w3c.dom.Text;
 
 /**
  * 创建时间: 2019/08/09
  * 作者: zhangchao042@ke.com
  * 描述: 测试各种基础控件的Activity
  */
-public class UIActivity extends AppCompatActivity implements View.OnClickListener{
+public class UIActivity extends BaseActivity implements View.OnClickListener{
 
   private FloatingActionButton fab;
   private int NUM = 1;
+  private ImageView mImgShow;
+  private Button mBtnLoadImage;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,13 +37,27 @@ public class UIActivity extends AppCompatActivity implements View.OnClickListene
   private void initViews() {
     fab = findViewById(R.id.fab);
     fab.setOnClickListener(this);
+    mImgShow = findViewById(R.id.img_show);
+    mBtnLoadImage = findViewById(R.id.btn_load_image);
+    mBtnLoadImage.setOnClickListener(this);
   }
 
   @Override
   public void onClick(View v) {
     if(v.getId() == R.id.fab){
       fabGo(v);
+    }else if(v.getId() == R.id.btn_load_image){
+      loadImage(v);
     }
+  }
+
+  private void loadImage(View v) {
+    String imgUrl = "http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg";
+    //String gifUrl = "http://p1.pstatp.com/large/166200019850062839d3";
+    Glide.with(this)
+        .load(imgUrl)
+        .skipMemoryCache(true)
+        .into(mImgShow);
   }
 
   /**

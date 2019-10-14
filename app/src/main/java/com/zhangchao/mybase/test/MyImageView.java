@@ -3,8 +3,7 @@ package com.zhangchao.mybase.test;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.util.AttributeSet;
-import android.widget.TextView;
+import android.widget.ImageView;
 import com.zhangchao.common.util.LogUtil;
 
 /**
@@ -13,24 +12,10 @@ import com.zhangchao.common.util.LogUtil;
  * 描述:
  */
 @SuppressLint("AppCompatCustomView")
-public class MyView extends TextView {
+public class MyImageView extends ImageView {
 
-  public MyView(Context context) {
+  public MyImageView(Context context) {
     super(context);
-  }
-
-  public MyView(Context context, AttributeSet attrs) {
-    super(context, attrs);
-  }
-
-  public MyView(Context context, AttributeSet attrs,
-      int defStyleAttr) {
-    super(context, attrs, defStyleAttr);
-  }
-
-  public MyView(Context context, AttributeSet attrs, int defStyleAttr,
-      int defStyleRes) {
-    super(context, attrs, defStyleAttr, defStyleRes);
   }
 
   @Override
@@ -49,6 +34,8 @@ public class MyView extends TextView {
   protected void onDraw(Canvas canvas) {
     super.onDraw(canvas);
     LogUtil.i("onDraw");
+
+
   }
 
 }

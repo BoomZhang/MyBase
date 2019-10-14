@@ -1,13 +1,22 @@
 package com.zhangchao.mybase.test;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import com.zhangchao.common.base.BaseActivity;
+import com.zhangchao.common.ui.SeatView;
+import com.zhangchao.common.util.LogUtil;
 import com.zhangchao.mybase.R;
 import java.util.regex.Pattern;
 
@@ -20,12 +29,40 @@ public class ViewActivity extends BaseActivity {
 
   private TextInputLayout mTextInputLayout;
   private EditText mEtInputPhoneNumber;
+  private SeatView mSeatView;
+  private Button mBtnShowDialog;
+  private DialogFragment dialogFragment;
+  //private Handler mHandler = new Handler();
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
+    //setPrintLifeCycle(true);
     super.onCreate(savedInstanceState);
     setContentView(R.layout.view_test_layout);
     initViews();
+    //查看Fragment工作流程源码
+    FragmentManager fragmentManager = getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+    //new Thread(new Runnable() {
+    //  @Override
+    //  public void run() {
+    //    while (true) {
+    //      try {
+    //        Thread.sleep(2000);
+    //      } catch (InterruptedException e) {
+    //        e.printStackTrace();
+    //      }
+    //      mHandler.post(new Runnable() {
+    //        @Override
+    //        public void run() {
+    //          if (dialogFragment != null) {
+    //            dialogFragment.dismissAllowingStateLoss();
+    //          }
+    //        }
+    //      });
+    //    }
+    //  }
+    //}).start();
   }
 
   private void initViews() {
@@ -52,12 +89,34 @@ public class ViewActivity extends BaseActivity {
 
       }
     });
+
+    mSeatView = findViewById(R.id.seat_view);
+    mSeatView.setData(10,20);
+    mBtnShowDialog = findViewById(R.id.btn_show_dialog);
+    mBtnShowDialog.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        dialogFragment = new MyDialogFragment();
+        dialogFragment.show(getSupportFragmentManager(),"TEST");
+      }
+    });
+  }
+
+  @Override
+  public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+    super.onSaveInstanceState(outState, outPersistentState);
+    LogUtil.i("onSave");
   }
 
   @Override
   public boolean onTouchEvent(MotionEvent event) {
     super.onTouchEvent(event);
     return true;
+  }
+
+  @Override
+  protected void onStop() {
+    super.onStop();
   }
 
   public static boolean isInteger(String str) {

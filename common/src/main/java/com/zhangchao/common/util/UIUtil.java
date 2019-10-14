@@ -9,7 +9,7 @@ import android.view.View;
  * 作者: zhangchao042@ke.com
  * 描述: 处理UI的工具类
  */
-public class UIUtil {
+public final class UIUtil {
 
   /**
    * 打印View的位置信息

@@ -14,6 +14,7 @@ import com.zhangchao.common.media.Camera2Activity;
 import com.zhangchao.common.media.CameraActivity;
 import com.zhangchao.mybase.test.MediaActivity;
 import com.zhangchao.mybase.test.RecycleViewActivity;
+import com.zhangchao.mybase.test.StoreActivity;
 import com.zhangchao.mybase.test.UIActivity;
 import com.zhangchao.mybase.test.ViewActivity;
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ public class MainActivity extends BaseActivity {
     listView.setLayoutManager(manager);
     MainAdapter adapter = new MainAdapter(this,data);
     listView.setAdapter(adapter);
+    getBaseContext();
+    getApplicationContext();
   }
 
   private void initList() {
@@ -45,6 +48,7 @@ public class MainActivity extends BaseActivity {
     data.add(new Item("自定义相机2",Camera2Activity.class));
     data.add(new Item("RecyclerView",RecycleViewActivity.class));
     data.add(new Item("View测试", ViewActivity.class));
+    data.add(new Item("存储测试", StoreActivity.class));
   }
 
   @Override

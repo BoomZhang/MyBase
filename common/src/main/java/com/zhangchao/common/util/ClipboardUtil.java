@@ -9,7 +9,7 @@ import android.content.Context;
  * 作者: zhangchao042@ke.com
  * 描述: 剪切板工具类的封装
  */
-public class ClipboardUtil {
+public final class ClipboardUtil {
 
   public static ClipboardManager manager;
 

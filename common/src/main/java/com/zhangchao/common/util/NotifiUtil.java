@@ -13,7 +13,7 @@ import android.support.v4.app.NotificationManagerCompat;
  * 作者: zhangchao042@ke.com
  * 描述: 发送通知的Util类
  */
-public class NotifiUtil {
+public final class NotifiUtil {
 
   private static Notifi notifi;
 

@@ -8,7 +8,7 @@ import android.widget.Toast;
  * 作者: zhangchao042@ke.com
  * 描述: ToastUtil的工具类
  */
-public class ToastUtil {
+public final class ToastUtil {
 
   public static void showLong(Context context, String text){
     Toast.makeText(context,text,Toast.LENGTH_LONG).show();
