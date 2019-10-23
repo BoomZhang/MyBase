@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.zhangchao.common.base.BaseActivity;
 import com.zhangchao.mybase.R;
+import com.zhangchao.mybase.lifecycletest.IPresenter;
+import com.zhangchao.mybase.lifecycletest.MainPresenter;
 import org.w3c.dom.Text;
 
 /**
@@ -27,11 +29,15 @@ public class UIActivity extends BaseActivity implements View.OnClickListener{
   private ImageView mImgShow;
   private Button mBtnLoadImage;
 
+  private IPresenter mPresenter;
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.ui_test_1);
     initViews();
+    mPresenter = new MainPresenter(this);
+    getLifecycle().addObserver(mPresenter);
   }
 
   private void initViews() {
