@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <declare-styleable name="VerificationEditText">
+    <attr name="codeWidth" format="dimension"/>
+    <attr name="codeBackgroundColor" format="color"/>
+    <attr name="codeText" format="string"/>
+    <attr name="codeTextColor" format="color"/>
+    <attr name="codeTextSize" format="dimension"/>
+  </declare-styleable>
+
+</resources>

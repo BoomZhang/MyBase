@@ -8,16 +8,17 @@ package com.zhangchao.mybase;
 public class Main {
 
   public static void main(String[] strings){
-    int a = 3;
-    boolean b = true;
-    System.out.println(isOb(b));
+    System.out.println(A.class.hashCode());
+    System.out.println(B.class.hashCode());
   }
 
-  public static boolean isOb(Object ob){
-    return ob instanceof Integer;
-  }
 
-  private void print(Object a){
+  public static class A{
 
   }
+
+  public static class B{
+
+  }
+
 }

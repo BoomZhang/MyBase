@@ -38,10 +38,25 @@
     android:layout_height="wrap_content"
     android:text="弹出Dialog"/>
 
+  <com.zhangchao.mybase.test.VerificationEditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:codeBackgroundColor="#FFFFFF"
+    app:codeText="获取验证码"
+    app:codeTextColor="#000000"
+    app:codeWidth="180dp"
+    app:codeTextSize="20sp" />
+
   <com.zhangchao.common.ui.SeatView
     android:id="@+id/seat_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="20dp"/>
+    android:layout_marginTop="20dp"
+    android:visibility="gone"/>
+
+  <com.zhangchao.mybase.test.MyView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:visibility="gone"/>
 
 </LinearLayout>

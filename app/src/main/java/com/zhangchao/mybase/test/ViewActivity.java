@@ -32,7 +32,6 @@ public class ViewActivity extends BaseActivity {
   private SeatView mSeatView;
   private Button mBtnShowDialog;
   private DialogFragment dialogFragment;
-  //private Handler mHandler = new Handler();
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,26 +42,18 @@ public class ViewActivity extends BaseActivity {
     //查看Fragment工作流程源码
     FragmentManager fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-    //new Thread(new Runnable() {
-    //  @Override
-    //  public void run() {
-    //    while (true) {
-    //      try {
-    //        Thread.sleep(2000);
-    //      } catch (InterruptedException e) {
-    //        e.printStackTrace();
-    //      }
-    //      mHandler.post(new Runnable() {
-    //        @Override
-    //        public void run() {
-    //          if (dialogFragment != null) {
-    //            dialogFragment.dismissAllowingStateLoss();
-    //          }
-    //        }
-    //      });
-    //    }
-    //  }
-    //}).start();
+
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+
+          }
+        });
+      }
+    }).start();
   }
 
   private void initViews() {

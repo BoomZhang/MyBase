@@ -11,6 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.Target;
 import com.zhangchao.common.base.BaseActivity;
 import com.zhangchao.mybase.R;
 import com.zhangchao.mybase.lifecycletest.IPresenter;
@@ -58,8 +63,17 @@ public class UIActivity extends BaseActivity implements View.OnClickListener{
   }
 
   private void loadImage(View v) {
+
+    SimpleTarget<GlideDrawable> simpleTarget = new SimpleTarget<GlideDrawable>() {
+      @Override
+      public void onResourceReady(GlideDrawable resource,
+          GlideAnimation<? super GlideDrawable> glideAnimation) {
+        mImgShow.setImageDrawable(resource);
+      }
+    };
+
     String imgUrl = "http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg";
-    //String gifUrl = "http://p1.pstatp.com/large/166200019850062839d3";
+    ImageView imageView;
     Glide.with(this)
         .load(imgUrl)
         .skipMemoryCache(true)
@@ -103,4 +117,5 @@ public class UIActivity extends BaseActivity implements View.OnClickListener{
         })
         .show();
   }
+
 }

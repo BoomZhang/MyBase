@@ -1,6 +1,7 @@
 package com.zhangchao.mybase.test;
 
 import android.Manifest;
+import android.arch.lifecycle.Lifecycle;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ public class MediaActivity extends BaseActivity implements View.OnClickListener{
   private Button mBtTakePhoto;
   private ImageView mIvShow;
   private Button mBtTakeVideo;
+
   private VideoView mVodShow;
 
   @Override

@@ -38,6 +38,7 @@
     <activity android:name="com.zhangchao.common.media.CameraActivity"/>
     <activity android:name="com.zhangchao.common.media.Camera2Activity"/>
     <activity android:name=".test.AnimationActivity"/>
+    <activity android:name=".test.MyViewActivity"/>
 
     <!--声明一个关于文件的分享FileProvider，继承于ContentProvider-->
     <!--name: 表明使用v4包下的FileProvider，可以继承FileProvider自定义所需要的Provider-->

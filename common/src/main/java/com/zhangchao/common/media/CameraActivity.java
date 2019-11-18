@@ -85,7 +85,7 @@ public class CameraActivity extends AppCompatActivity implements View.OnClickLis
           , new Permission.Status() {
             @Override
             public void allow() {
-              camera = Camera.open();
+              camera = Camera.open(1);
               openCamera();
             }
 

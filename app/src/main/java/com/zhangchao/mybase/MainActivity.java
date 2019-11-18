@@ -14,6 +14,7 @@ import com.zhangchao.common.media.Camera2Activity;
 import com.zhangchao.common.media.CameraActivity;
 import com.zhangchao.mybase.test.AnimationActivity;
 import com.zhangchao.mybase.test.MediaActivity;
+import com.zhangchao.mybase.test.MyViewActivity;
 import com.zhangchao.mybase.test.RecycleViewActivity;
 import com.zhangchao.mybase.test.StoreActivity;
 import com.zhangchao.mybase.test.UIActivity;
@@ -43,6 +44,7 @@ public class MainActivity extends BaseActivity {
   private void initList() {
     data.clear();
     data.add(new Item("UI测试",UIActivity.class));
+    data.add(new Item("自定义控件", MyViewActivity.class));
     data.add(new Item("多媒体功能测试",MediaActivity.class));
     data.add(new Item("自定义相机",CameraActivity.class));
     data.add(new Item("自定义相机2",Camera2Activity.class));
@@ -50,6 +52,7 @@ public class MainActivity extends BaseActivity {
     data.add(new Item("View测试", ViewActivity.class));
     data.add(new Item("存储测试", StoreActivity.class));
     data.add(new Item("动画学习", AnimationActivity.class));
+    PreloadManager<Item> preloadManager = LeaseCacheUtil.get(this,Item.class);
   }
 
   @Override
