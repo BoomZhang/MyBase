@@ -15,6 +15,10 @@
     android:layout_height="wrap_content"
     android:layout_below="@+id/btn_load_image"/>
 
+  <com.zhangchao.mybase.test.MyImageView
+    android:src="@drawable/test_1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
 
   <!--只有在FloatingActionButton外部套上一个CoordinatorLayout布局-->
   <!--才能在使用SnackBar时支持Button被顶起，并支持滑动删除-->

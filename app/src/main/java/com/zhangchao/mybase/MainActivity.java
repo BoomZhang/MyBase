@@ -12,7 +12,6 @@ import android.widget.Button;
 import com.zhangchao.common.base.BaseActivity;
 import com.zhangchao.common.media.Camera2Activity;
 import com.zhangchao.common.media.CameraActivity;
-import com.zhangchao.mybase.test.AnimationActivity;
 import com.zhangchao.mybase.test.MediaActivity;
 import com.zhangchao.mybase.test.MyViewActivity;
 import com.zhangchao.mybase.test.RecycleViewActivity;
@@ -38,7 +37,8 @@ public class MainActivity extends BaseActivity {
     listView.setLayoutManager(manager);
     MainAdapter adapter = new MainAdapter(this,data);
     listView.setAdapter(adapter);
-    overridePendingTransition(R.anim.activity_bottom_to_top_enter,R.anim.no_anim);
+    getBaseContext();
+    getApplicationContext();
   }
 
   private void initList() {
@@ -51,8 +51,6 @@ public class MainActivity extends BaseActivity {
     data.add(new Item("RecyclerView",RecycleViewActivity.class));
     data.add(new Item("View测试", ViewActivity.class));
     data.add(new Item("存储测试", StoreActivity.class));
-    data.add(new Item("动画学习", AnimationActivity.class));
-    PreloadManager<Item> preloadManager = LeaseCacheUtil.get(this,Item.class);
   }
 
   @Override

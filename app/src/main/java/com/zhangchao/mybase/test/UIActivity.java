@@ -4,23 +4,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.Target;
 import com.zhangchao.common.base.BaseActivity;
 import com.zhangchao.mybase.R;
-import com.zhangchao.mybase.lifecycletest.IPresenter;
-import com.zhangchao.mybase.lifecycletest.MainPresenter;
-import org.w3c.dom.Text;
 
 /**
  * 创建时间: 2019/08/09
@@ -34,15 +26,11 @@ public class UIActivity extends BaseActivity implements View.OnClickListener{
   private ImageView mImgShow;
   private Button mBtnLoadImage;
 
-  private IPresenter mPresenter;
-
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.ui_test_1);
     initViews();
-    mPresenter = new MainPresenter(this);
-    getLifecycle().addObserver(mPresenter);
   }
 
   private void initViews() {
@@ -73,7 +61,6 @@ public class UIActivity extends BaseActivity implements View.OnClickListener{
     };
 
     String imgUrl = "http://cn.bing.com/az/hprichbg/rb/Dongdaemun_ZH-CN10736487148_1920x1080.jpg";
-    ImageView imageView;
     Glide.with(this)
         .load(imgUrl)
         .skipMemoryCache(true)
