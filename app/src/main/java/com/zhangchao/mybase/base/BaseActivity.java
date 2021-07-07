@@ -8,5 +8,5 @@ import android.support.v7.app.AppCompatActivity;
  * 描述: Activity 基类
  */
 public class BaseActivity extends AppCompatActivity {
-
+//test
 }
